@@ -11,10 +11,31 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f9fafb;
+            background-color: #ffffff;
+        }
+
+        /* Estilo para el scroll horizontal suave */
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            gap: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        /* Ocultar barra de scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         .category-card {
+            flex: 0 0 auto;
+            width: 280px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             overflow: hidden;
@@ -33,13 +54,54 @@
             transform: scale(1.1);
         }
 
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
+        .instagram-feed-item {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+            overflow: hidden;
         }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+
+        .instagram-feed-item:hover .overlay {
+            opacity: 1;
         }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Botones de navegación sobre las fotos */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.2s;
+            border: 1px solid #eee;
+        }
+        .nav-arrow:hover {
+            background: #f9fafb;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .nav-arrow.left { left: -22px; }
+        .nav-arrow.right { right: -22px; }
     </style>
 </head>
 <body class="text-gray-900">
@@ -52,7 +114,6 @@
                     <i class="fas fa-compass mr-2"></i> Logo
                 </div>
                 
-                <!-- Main Search Bar -->
                 <div class="flex-1 max-w-2xl relative">
                     <input type="text" 
                            placeholder="Search for food, athletes, fashion..." 
@@ -70,81 +131,126 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Discover Section -->
-        <section>
+        <!-- Discover Section with Overlay Arrows -->
+        <section class="mb-12 pb-10 border-b border-gray-100">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Discover</h2>
                 <button class="text-blue-600 hover:underline text-sm font-semibold">View all</button>
             </div>
 
-            <!-- Categories Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                
-                <!-- Food Category -->
-                <div class="category-card relative h-64 rounded-2xl bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=80" 
-                         alt="Food" 
-                         class="w-full h-full object-cover rounded-2xl"
-                         onerror="this.src='https://via.placeholder.com/500x500?text=Food'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
-                        <div>
-                            <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Popular</span>
+            <div class="relative group">
+                <!-- Flechas sobre las fotos -->
+                <button onclick="scrollDiscover(-400)" class="nav-arrow left">
+                    <i class="fas fa-chevron-left text-gray-700"></i>
+                </button>
+                <button onclick="scrollDiscover(400)" class="nav-arrow right">
+                    <i class="fas fa-chevron-right text-gray-700"></i>
+                </button>
+
+                <div id="discoverScroll" class="horizontal-scroll no-scrollbar">
+                    
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=80" alt="Food" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
                             <h3 class="text-white text-xl font-bold">Food</h3>
                         </div>
                     </div>
-                </div>
 
-                <!-- Athletes Category -->
-                <div class="category-card relative h-64 rounded-2xl bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=500&q=80" 
-                         alt="Athletes" 
-                         class="w-full h-full object-cover rounded-2xl"
-                         onerror="this.src='https://via.placeholder.com/500x500?text=Athletes'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
-                        <div>
-                            <span class="text-xs font-bold text-orange-400 uppercase tracking-wider">Performance</span>
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=500&q=80" alt="Athletes" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
                             <h3 class="text-white text-xl font-bold">Athletes</h3>
                         </div>
                     </div>
-                </div>
 
-                <!-- Fashion Category -->
-                <div class="category-card relative h-64 rounded-2xl bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=80" 
-                         alt="Fashion" 
-                         class="w-full h-full object-cover rounded-2xl"
-                         onerror="this.src='https://via.placeholder.com/500x500?text=Fashion'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
-                        <div>
-                            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">Style</span>
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=80" alt="Fashion" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
                             <h3 class="text-white text-xl font-bold">Fashion</h3>
                         </div>
                     </div>
-                </div>
 
-                <!-- Tech Category -->
-                <div class="category-card relative h-64 rounded-2xl bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=80" 
-                         alt="Technology" 
-                         class="w-full h-full object-cover rounded-2xl"
-                         onerror="this.src='https://via.placeholder.com/500x500?text=Technology'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
-                        <div>
-                            <span class="text-xs font-bold text-green-400 uppercase tracking-wider">Gadgets</span>
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=80" alt="Technology" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
                             <h3 class="text-white text-xl font-bold">Technology</h3>
                         </div>
                     </div>
-                </div>
 
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=500&q=80" alt="Travel" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
+                            <h3 class="text-white text-xl font-bold">Travel</h3>
+                        </div>
+                    </div>
+
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=500&q=80" alt="Art" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
+                            <h3 class="text-white text-xl font-bold">Art</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Additional Content Section -->
-        <section class="mt-12">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Today's Trends</h2>
-            <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm text-center">
-                <i class="fas fa-fire text-4xl text-orange-500 mb-4"></i>
-                <p class="text-gray-500 max-w-md mx-auto">Explore the most relevant content based on your interests and what is happening in the world right now.</p>
+        <!-- Instagram Style Feed -->
+        <section>
+            <div class="flex items-center space-x-2 mb-6">
+                <i class="fab fa-instagram text-2xl text-pink-600"></i>
+                <h2 class="text-xl font-bold text-gray-800">Explore Feed</h2>
+            </div>
+
+            <div class="grid grid-cols-3 gap-1 md:gap-4">
+                <div class="instagram-feed-item group">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="absolute top-2 right-2 text-white drop-shadow-md"><i class="fas fa-play"></i></div>
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 1.2k</span><span><i class="fas fa-comment mr-1"></i> 84</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 942</span><span><i class="fas fa-comment mr-1"></i> 12</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="absolute top-2 right-2 text-white drop-shadow-md"><i class="fas fa-video"></i></div>
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 2.5k</span><span><i class="fas fa-comment mr-1"></i> 156</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 731</span><span><i class="fas fa-comment mr-1"></i> 5</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1502741126161-b048400d085d?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 1.8k</span><span><i class="fas fa-comment mr-1"></i> 42</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="absolute top-2 right-2 text-white drop-shadow-md"><i class="fas fa-play"></i></div>
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 3.1k</span><span><i class="fas fa-comment mr-1"></i> 201</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 5.2k</span><span><i class="fas fa-comment mr-1"></i> 310</span></div>
+                </div>
+
+                <!-- Nueva foto de Arquitectura mejorada -->
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" alt="Modern Architecture">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 3.4k</span><span><i class="fas fa-comment mr-1"></i> 112</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="absolute top-2 right-2 text-white drop-shadow-md"><i class="fas fa-video"></i></div>
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 4.3k</span><span><i class="fas fa-comment mr-1"></i> 128</span></div>
+                </div>
             </div>
         </section>
 
@@ -156,5 +262,11 @@
         </div>
     </footer>
 
+    <script>
+        function scrollDiscover(amount) {
+            const container = document.getElementById('discoverScroll');
+            container.scrollBy({ left: amount, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
