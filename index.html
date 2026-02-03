@@ -3,289 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frederick David Profile - Real Madrid CF</title>
+    <title>Explore and Discover</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            margin: 0;
+            background-color: #ffffff;
+        }
+
+        /* Estilo para el scroll horizontal suave */
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            gap: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        /* Ocultar barra de scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .category-card {
+            flex: 0 0 auto;
+            width: 280px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .category-card img {
+            transition: transform 0.5s ease;
+        }
+
+        .category-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .instagram-feed-item {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .instagram-feed-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-        }
-
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .pro-active .profile-ring {
-            background: linear-gradient(to top right, #f59e0b, #fef3c7, #d97706);
-            transform: rotate(12deg);
-        }
-
-        .pro-active .zap-icon {
-            color: #000;
-            background: linear-gradient(to right, #fbbf24, #d97706);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-        }
-
-        .tab-active {
+            opacity: 0;
+            transition: opacity 0.2s ease;
             color: white;
+            font-size: 1.2rem;
         }
 
-        .tab-indicator {
-            height: 2px;
-            background: linear-gradient(to right, transparent, #f59e0b, transparent);
+        /* Botones de navegación sobre las fotos */
+        .nav-arrow {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: none;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.2s;
+            border: 1px solid #eee;
         }
-
-        .tab-active .tab-indicator {
-            display: block;
+        .nav-arrow:hover {
+            background: #f9fafb;
+            transform: translateY(-50%) scale(1.1);
         }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-content {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
+        .nav-arrow.left { left: -22px; }
+        .nav-arrow.right { right: -22px; }
     </style>
 </head>
-<body class="p-4">
+<body class="text-gray-900">
 
-    <!-- Mobile Frame -->
-    <div id="phone-container" class="relative w-full max-w-[400px] h-[844px] bg-[#0a0a0a] rounded-[55px] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border-[8px] border-[#1a1a1a] pro-active">
+    <!-- Top Navigation -->
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between gap-4">
+                <div class="text-2xl font-bold text-blue-600 flex items-center">
+                    <i class="fas fa-compass mr-2"></i> Logo
+                </div>
+                
+                <div class="flex-1 max-w-2xl relative">
+                    <input type="text" 
+                           placeholder="Search for food, athletes, fashion..." 
+                           class="w-full bg-gray-100 border-none rounded-full py-2.5 pl-12 pr-4 focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all outline-none">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-6">
+                    <button class="text-gray-600 hover:text-blue-600 font-medium">Home</button>
+                    <button class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition">Login</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Status Bar -->
-        <div class="absolute top-0 w-full h-12 flex justify-between items-center px-10 z-50">
-            <span class="text-white text-xs font-semibold">9:41</span>
-            <div class="flex gap-1.5 items-center">
-                <div class="flex gap-0.5">
-                    <div class="w-0.5 h-2 bg-white/80 rounded-full"></div>
-                    <div class="w-0.5 h-2 bg-white/80 rounded-full"></div>
-                    <div class="w-0.5 h-2 bg-white/80 rounded-full"></div>
-                    <div class="w-0.5 h-2 bg-white/40 rounded-full"></div>
-                </div>
-                <span class="text-[10px] text-white font-bold ml-1">5G</span>
-                <div class="w-5 h-2.5 rounded-[2px] border border-white/40 relative ml-1">
-                    <div class="absolute left-0.5 top-0.5 bottom-0.5 right-1.5 bg-white rounded-[1px]"></div>
-                </div>
+        <!-- Discover Section with Overlay Arrows -->
+        <section class="mb-12 pb-10 border-b border-gray-100">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Discover</h2>
+                <button class="text-blue-600 hover:underline text-sm font-semibold">View all</button>
             </div>
-        </div>
 
-        <!-- Header -->
-        <div class="pt-14 px-6 flex justify-between items-center">
-            <button onclick="toggleProMode()" class="zap-icon flex items-center justify-center w-10 h-10 rounded-full transition-all duration-500 transform active:scale-90 bg-white/5 text-amber-500 border border-amber-500/30">
-                <i data-lucide="zap" class="w-5 h-5"></i>
-            </button>
-            <div class="p-2 bg-white/5 rounded-full border border-white/10 active:bg-white/10 cursor-pointer">
-                <i data-lucide="settings" class="text-white/70 w-5 h-5"></i>
-            </div>
-        </div>
+            <div class="relative group">
+                <!-- Flechas sobre las fotos -->
+                <button onclick="scrollDiscover(-400)" class="nav-arrow left">
+                    <i class="fas fa-chevron-left text-gray-700"></i>
+                </button>
+                <button onclick="scrollDiscover(400)" class="nav-arrow right">
+                    <i class="fas fa-chevron-right text-gray-700"></i>
+                </button>
 
-        <!-- Profile -->
-        <div class="mt-8 px-6 flex flex-col items-center">
-            <div class="relative">
-                <div class="profile-ring w-32 h-32 rounded-full p-1 transition-all duration-700 bg-gray-700">
-                    <div class="w-full h-full rounded-full overflow-hidden border-4 border-black -rotate-12 transform-gpu bg-neutral-800">
-                        <img src="https://images.unsplash.com/photo-1543351611-58f69d7c1781?q=80&w=300&auto=format&fit=crop" alt="Frederick David" class="w-full h-full object-cover grayscale-[10%]">
+                <div id="discoverScroll" class="horizontal-scroll no-scrollbar">
+                    
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=80" alt="Food" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
+                            <h3 class="text-white text-xl font-bold">Food</h3>
+                        </div>
+                    </div>
+
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=500&q=80" alt="Athletes" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
+                            <h3 class="text-white text-xl font-bold">Athletes</h3>
+                        </div>
+                    </div>
+
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=80" alt="Fashion" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
+                            <h3 class="text-white text-xl font-bold">Fashion</h3>
+                        </div>
+                    </div>
+
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=80" alt="Technology" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
+                            <h3 class="text-white text-xl font-bold">Technology</h3>
+                        </div>
+                    </div>
+
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=500&q=80" alt="Travel" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
+                            <h3 class="text-white text-xl font-bold">Travel</h3>
+                        </div>
+                    </div>
+
+                    <div class="category-card relative h-48 rounded-2xl bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=500&q=80" alt="Art" class="w-full h-full object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex items-end p-5">
+                            <h3 class="text-white text-xl font-bold">Art</h3>
+                        </div>
                     </div>
                 </div>
-                <div id="crown-badge" class="absolute -bottom-1 -right-1 bg-amber-500 p-1.5 rounded-full border-2 border-black shadow-lg shadow-amber-500/40">
-                    <i data-lucide="crown" class="text-black w-3.5 h-3.5"></i>
+            </div>
+        </section>
+
+        <!-- Instagram Style Feed -->
+        <section>
+            <div class="flex items-center space-x-2 mb-6">
+                <i class="fab fa-instagram text-2xl text-pink-600"></i>
+                <h2 class="text-xl font-bold text-gray-800">Explore Feed</h2>
+            </div>
+
+            <div class="grid grid-cols-3 gap-1 md:gap-4">
+                <div class="instagram-feed-item group">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="absolute top-2 right-2 text-white drop-shadow-md"><i class="fas fa-play"></i></div>
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 1.2k</span><span><i class="fas fa-comment mr-1"></i> 84</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 942</span><span><i class="fas fa-comment mr-1"></i> 12</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="absolute top-2 right-2 text-white drop-shadow-md"><i class="fas fa-video"></i></div>
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 2.5k</span><span><i class="fas fa-comment mr-1"></i> 156</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 731</span><span><i class="fas fa-comment mr-1"></i> 5</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1502741126161-b048400d085d?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 1.8k</span><span><i class="fas fa-comment mr-1"></i> 42</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="absolute top-2 right-2 text-white drop-shadow-md"><i class="fas fa-play"></i></div>
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 3.1k</span><span><i class="fas fa-comment mr-1"></i> 201</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 5.2k</span><span><i class="fas fa-comment mr-1"></i> 310</span></div>
+                </div>
+
+                <!-- Nueva foto de Arquitectura mejorada -->
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" alt="Modern Architecture">
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 3.4k</span><span><i class="fas fa-comment mr-1"></i> 112</span></div>
+                </div>
+
+                <div class="instagram-feed-item">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <div class="absolute top-2 right-2 text-white drop-shadow-md"><i class="fas fa-video"></i></div>
+                    <div class="overlay"><span class="mr-4"><i class="fas fa-heart mr-1"></i> 4.3k</span><span><i class="fas fa-comment mr-1"></i> 128</span></div>
                 </div>
             </div>
-            
-            <h1 class="mt-5 text-2xl font-bold text-white tracking-tight">Frederick David</h1>
-            <div class="flex items-center gap-2 mt-1">
-                <i data-lucide="shield" class="text-amber-500 w-3 h-3"></i>
-                <p class="text-white/50 text-xs font-medium uppercase tracking-widest">Center Forward | Real Madrid CF</p>
-            </div>
-            
-            <div class="flex gap-8 mt-8 w-full justify-center">
-                <div class="text-center group cursor-pointer">
-                    <p class="text-white font-bold text-lg">128</p>
-                    <p class="text-white/30 text-[9px] uppercase tracking-[0.2em] mt-0.5">Videos</p>
-                </div>
-                <div class="h-8 w-[1px] bg-white/10 self-center"></div>
-                <div class="text-center group cursor-pointer">
-                    <p class="text-white font-bold text-lg">4.5M</p>
-                    <p class="text-white/30 text-[9px] uppercase tracking-[0.2em] mt-0.5">Followers</p>
-                </div>
-                <div class="h-8 w-[1px] bg-white/10 self-center"></div>
-                <div class="text-center group cursor-pointer">
-                    <p class="text-white font-bold text-lg">850</p>
-                    <p class="text-white/30 text-[9px] uppercase tracking-[0.2em] mt-0.5">Following</p>
-                </div>
-            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            © 2024 Your Platform. All rights reserved.
         </div>
-
-        <!-- Tabs -->
-        <div class="mt-10 px-6">
-            <div class="flex border-b border-white/5">
-                <button onclick="setActiveTab('Nodes')" id="tab-Nodes" class="tab-btn tab-active flex-1 pb-4 text-[10px] font-black uppercase tracking-[0.25em] transition-all flex items-center justify-center relative text-white/20">
-                    NODES
-                    <div class="tab-indicator"></div>
-                </button>
-                <button onclick="setActiveTab('Reposts')" id="tab-Reposts" class="tab-btn flex-1 pb-4 text-[10px] font-black uppercase tracking-[0.25em] transition-all flex items-center justify-center relative text-white/20">
-                    <i data-lucide="repeat-2" class="w-3 h-3 mr-1"></i> REPOSTS
-                    <div class="tab-indicator"></div>
-                </button>
-                <button onclick="setActiveTab('Comments')" id="tab-Comments" class="tab-btn flex-1 pb-4 text-[10px] font-black uppercase tracking-[0.25em] transition-all flex items-center justify-center relative text-white/20">
-                    <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i> COMMENTS
-                    <div class="tab-indicator"></div>
-                </button>
-            </div>
-        </div>
-
-        <!-- Content Area -->
-        <div id="content-area" class="mt-6 px-6 h-[320px] overflow-y-auto no-scrollbar pb-24">
-            <div class="flex justify-between items-center mb-5">
-                <h2 id="content-title" class="text-white/80 text-xs font-bold uppercase tracking-widest">Featured Nodes</h2>
-                <button onclick="toggleViewMode()" id="view-toggle-btn" class="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 rounded-full border border-white/10 text-[9px] text-amber-500 font-black uppercase tracking-wider transition-all hover:bg-white/10 shadow-lg">
-                    <i data-lucide="list" class="w-3 h-3"></i> LIST
-                </button>
-            </div>
-
-            <div id="grid-container" class="grid grid-cols-2 gap-4 animate-content">
-                <!-- Filled with JavaScript -->
-            </div>
-        </div>
-
-        <!-- Navbar -->
-        <div class="absolute bottom-0 w-full h-24 bg-black/40 backdrop-blur-2xl border-t border-white/5 flex justify-around items-center px-6 pb-4 z-40">
-            <button class="text-amber-500"><i data-lucide="user" stroke-width="2.5"></i></button>
-            <button class="text-white/20 hover:text-white/40"><i data-lucide="search"></i></button>
-            
-            <div class="relative -mt-14 group cursor-pointer">
-                <div class="absolute inset-0 bg-amber-500 blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                <div class="relative bg-gradient-to-br from-amber-400 to-yellow-700 p-4 rounded-[26px] shadow-2xl active:scale-90 transition-all ring-4 ring-black">
-                    <i data-lucide="play" fill="black" class="text-black ml-0.5"></i>
-                </div>
-            </div>
-
-            <button class="text-white/20 hover:text-white/40"><i data-lucide="message-square"></i></button>
-            <button class="text-white/20 hover:text-white/40"><i data-lucide="heart"></i></button>
-        </div>
-
-        <!-- Home Indicator -->
-        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-white/10 rounded-full z-50"></div>
-    </div>
+    </footer>
 
     <script>
-        // Initialize Icons
-        lucide.createIcons();
-
-        let proMode = true;
-        let viewMode = 'nodos';
-        let activeTab = 'Nodes';
-
-        const nodos = [
-            { id: 1, title: 'Antology Goals', count: 12, image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=500' },
-            { id: 2, title: 'Tactics & Vision', count: 8, image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=500' },
-            { id: 3, title: 'Elite Training', count: 15, image: 'https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=500' },
-            { id: 4, title: 'Behind the Scenes', count: 24, image: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=500' },
-        ];
-
-        const allVideos = [
-            { id: 101, title: 'Bicycle Kick vs Atleti', image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=300' },
-            { id: 102, title: 'UCL Through Ball', image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=300' },
-            { id: 103, title: '35km/h Sprint', image: 'https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=300' },
-            { id: 104, title: 'Bernabéu Celebration', image: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=300' },
-        ];
-
-        function toggleProMode() {
-            proMode = !proMode;
-            const container = document.getElementById('phone-container');
-            const badge = document.getElementById('crown-badge');
-            
-            if (proMode) {
-                container.classList.add('pro-active');
-                badge.style.display = 'block';
-            } else {
-                container.classList.remove('pro-active');
-                badge.style.display = 'none';
-            }
+        function scrollDiscover(amount) {
+            const container = document.getElementById('discoverScroll');
+            container.scrollBy({ left: amount, behavior: 'smooth' });
         }
-
-        function setActiveTab(tab) {
-            activeTab = tab;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
-            document.getElementById(`tab-${tab}`).classList.add('tab-active');
-            renderContent();
-        }
-
-        function toggleViewMode() {
-            viewMode = viewMode === 'nodos' ? 'videos' : 'nodos';
-            const btn = document.getElementById('view-toggle-btn');
-            btn.innerHTML = viewMode === 'nodos' ? 
-                '<i data-lucide="list" class="w-3 h-3"></i> LIST' : 
-                '<i data-lucide="layout-grid" class="w-3 h-3"></i> GRID';
-            lucide.createIcons();
-            renderContent();
-        }
-
-        function renderContent() {
-            const container = document.getElementById('grid-container');
-            const title = document.getElementById('content-title');
-            const toggleBtn = document.getElementById('view-toggle-btn');
-            
-            container.innerHTML = '';
-            
-            if (activeTab !== 'Nodes') {
-                toggleBtn.style.display = 'none';
-                title.innerText = activeTab;
-                container.innerHTML = `
-                    <div class="col-span-2 flex flex-col items-center justify-center h-48 text-white/20 italic text-xs gap-3">
-                        <div class="w-12 h-12 rounded-full border border-dashed border-white/10 flex items-center justify-center">
-                            <i data-lucide="search" class="w-5 h-5"></i>
-                        </div>
-                        <p class="tracking-widest uppercase text-[10px]">Locker room is empty...</p>
-                    </div>
-                `;
-                lucide.createIcons();
-                return;
-            }
-
-            toggleBtn.style.display = 'flex';
-            title.innerText = viewMode === 'nodos' ? 'Featured Nodes' : 'Individual Highlights';
-            
-            const items = viewMode === 'nodos' ? nodos : allVideos;
-            
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'group relative aspect-[4/5] rounded-[24px] overflow-hidden bg-neutral-900 border border-white/5 cursor-pointer hover:border-amber-500/30 transition-all shadow-xl';
-                card.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 right-4">
-                        <p class="text-white text-[10px] font-black leading-tight mb-1 uppercase tracking-tight">${item.title}</p>
-                        <div class="flex items-center gap-1.5">
-                            <div class="w-4 h-4 rounded-full bg-amber-500/20 flex items-center justify-center">
-                                <i data-lucide="play" class="w-2 h-2 text-amber-500 fill-amber-500"></i>
-                            </div>
-                            <span class="text-[9px] text-white/40 font-bold">${item.count || 'HD'} ${viewMode === 'nodos' ? 'CLIPS' : ''}</span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-            lucide.createIcons();
-        }
-
-        // Initial render
-        renderContent();
     </script>
 </body>
 </html>
